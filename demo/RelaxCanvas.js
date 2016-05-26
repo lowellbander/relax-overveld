@@ -94,6 +94,7 @@ RelaxCanvas.prototype.keydown = function(k) {
   switch (k) {
     case 'P': this.enterPointMode();  break;
     case 'D': this.enterDeleteMode(); break;
+    case 'A': this.startAnimation(); break;
     case 'S': this.showConstraints = !this.showConstraints; break;
     default:
       if (this.applyFns[k] && this.applyFn !== this.applyFns[k]) {
@@ -101,6 +102,27 @@ RelaxCanvas.prototype.keydown = function(k) {
         this.applyFn = this.applyFns[k];
       }
   }
+};
+
+RelaxCanvas.prototype.unAnimateAllPoints = function () {
+  this.points.forEach(function (point) {
+    point.animating = false;
+  })
+};
+
+function randomFromArray(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+RelaxCanvas.prototype.animateRandomPoint = function (context) {
+  context.unAnimateAllPoints();
+  var randomPoint = randomFromArray(context.points);
+  randomPoint.animating = true;
+  console.log(context.points.map(p => p.animating ? 'O': '_'));
+};
+
+RelaxCanvas.prototype.startAnimation = function () {
+  window.setInterval(this.animateRandomPoint, 1000, this);
 };
 
 RelaxCanvas.prototype.keyup = function(k) {
@@ -255,7 +277,7 @@ RelaxCanvas.prototype.resume = function() {
 // -----------------------------------------------------
 
 RelaxCanvas.prototype.drawPoint = function(p) {
-  this.ctxt.fillStyle = p.isSelected ? 'yellow' : p.color;
+  this.ctxt.fillStyle = p.isSelected ? 'yellow' : (p.animating ? 'red' : p.color);
   this.ctxt.beginPath();
   this.ctxt.arc(p.x, p.y, this.pointRadius, 0, 2 * Math.PI);
   this.ctxt.closePath()
