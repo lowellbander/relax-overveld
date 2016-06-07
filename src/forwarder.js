@@ -20,6 +20,15 @@ class Forwarder {
         this.DataForwarded = 0;
         this.cachingEnabled = true;
     };
+    
+    stats() {
+        return this.InterestsReceived +
+            this.InterestsDropped +
+            this.InterestsForwarded +
+            this.DataReceived +
+            this.DataDropped +
+            this.DataForwarded;
+    }
 
     setBroadcastStrategy(attr) {
       this.broadcast = attr;

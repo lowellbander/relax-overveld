@@ -51,7 +51,7 @@ class Node {
     draw (context) {
         context.fillStyle = this.color;
         context.beginPath();
-        context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        context.arc(this.x, this.y, this.radius + 1.5 * this.forwarder.stats(), 0, 2 * Math.PI);
         context.closePath();
         context.fill();
         
