@@ -40,11 +40,23 @@ class Edge {
         if (this.numPackets !== 0) {
             var angle = Math.atan2(this.p2.y - this.p1.y, this.p2.x - this.p1.x);
             angle += (this.dst === this.p1) ? Math.PI : 0;
+
+            context.beginPath();
+            var dist = 25;
+            var p1x = this.p1.x - dist * Math.cos(angle + Math.PI / 2);
+            var p1y = this.p1.y - dist * Math.sin(angle + Math.PI / 2);
+            var p2x = this.p2.x - dist * Math.cos(angle + Math.PI / 2);
+            var p2y = this.p2.y - dist * Math.sin(angle + Math.PI / 2);
+            context.moveTo(p1x, p1y);
+            context.lineTo(p2x, p2y);
+            context.closePath();
+            context.stroke();
+            
             Triangle.draw({
                 context: context,
                 width: 30,
-                x: this.dst.x,
-                y: this.dst.y,
+                x: this.dst.x - dist * Math.cos(angle + Math.PI / 2),
+                y: this.dst.y - dist * Math.sin(angle + Math.PI / 2),
                 angle: angle,
                 color: 'lime',
             });
