@@ -31,12 +31,28 @@ class Data {
     return this.name;
   };
 
+  setName(name) {
+    this.name = new Name(name);
+  };
+
   getSignature() {
     return this.signature;
   };
 
+  setSignature(signature) {
+    this.signature = signature;
+  };
+
   getContent() {
     return this.content;
+  };
+
+  setContent(content) {
+    this.content = content;
+  };
+
+  getHopCount() {
+    return this.hopCount;
   };
 
   setHopCount(hopCount) {

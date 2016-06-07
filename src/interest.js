@@ -9,9 +9,17 @@ class Interest {
     return this.name;
   };
 
+  setPrefix(name) {
+    this.name = name instanceof Name ? name : new Name(name);
+  };
+
   getLifeTime() {
     return this.lifetime;
   }
+
+  setLifeTime(lifetime) {
+    this.lifetime = lifetime;
+  };
 
   getHopCount() {
     return this.hopCount;
