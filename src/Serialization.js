@@ -6,7 +6,7 @@ class Serialization {
     
     constructor(context) {
         this.x = 10;
-        this.y = 250;
+        this.y = 275;
         this.lineOffset = 15;
         this.context = context;
         this.context.fillStyle = 'black';
