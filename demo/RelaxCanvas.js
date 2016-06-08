@@ -543,12 +543,3 @@ RelaxCanvas.prototype.clear = function() {
 
   this.fingers = {}; // because fingers can refer to nodes
 };
-
-class ES6Test {
-  test() {
-    console.log('ES6 is working');
-  }
-}
-
-var t = new ES6Test();
-t.test();
