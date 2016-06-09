@@ -91,7 +91,18 @@ RelaxCanvas.prototype.keydown = function(k) {
     case 'D': this.enterDeleteMode(); break;
     case 'T': this.enterTypeMode(); break;
     case 'A': this.enterAttributesMode(); break;
-    case 'R': setInterval( function(){ this.step() }.bind(this), 1000); break;
+    case 'R': {
+      if (!this.intervalID) {
+        this.intervalID = setInterval(function () {
+              this.step();
+            }.bind(this),
+            1000);
+      }
+      else {
+        clearInterval(this.intervalID);
+        this.intervalID = undefined;
+      }
+    } break;
     case 'S': {
       this.step();
     } break;
@@ -353,10 +364,12 @@ RelaxCanvas.prototype.step = function () {
   for (var e of this.edges) {
     e.reset();
   }
+
+
   // step each node
   var next = [];
   for (var node of this.nodes) {
-    var n = node.step();
+    var n = node.start() || node.step();
     if (n) {
       next.push(n);
     }
